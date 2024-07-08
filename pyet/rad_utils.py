@@ -199,7 +199,7 @@ def calc_rad_long(
     rso = rso.where(rso != 0, 0.001)
     if len(rs.shape) == 3 and len(rso.shape) == 1:
         rso = rso.values[:, newaxis, newaxis]
-    solar_rat = clip(rs / rso, 0.3, 1)
+    solar_rat = clip(rs.values / rso.values, 0.3, 1)
     if tmax is not None:
         tmp1 = STEFAN_BOLTZMANN_DAY * ((tmax + 273.16) ** 4 + (tmin + 273.16) ** 4) / 2
     else:
@@ -279,7 +279,7 @@ def calc_rad_sol_in(n, lat, as1=0.25, bs1=0.5, nn=None):
     ra = extraterrestrial_r(tindex, lat)
     if nn is None:
         nn = daylight_hours(tindex, lat)
-    return (as1 + bs1 * n / nn) * ra
+    return (as1 + bs1 * n.values / nn) * ra
 
 
 def calc_rso(ra, elevation, kab=None):

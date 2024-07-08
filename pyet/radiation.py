@@ -4,7 +4,7 @@
 
 from numpy import sqrt, log
 from xarray import DataArray
-from pandas import Series
+from pandas import Series ,to_datetime
 from .meteo_utils import extraterrestrial_r, calc_press, calc_psy, calc_vpc, calc_lambda
 from .utils import get_index, check_rad, clip_zeros, pet_out, check_rh
 
@@ -104,8 +104,11 @@ def jensen_haise(tmean, rs=None, cr=0.025, tx=-3, lat=None, method=0, clip_zero=
         if lat is None:
             raise Exception("If you choose method == 1, provide lat!")
         index = get_index(tmean)
-        ra = extraterrestrial_r(index, lat, tmean)
-        pet = ra * (tmean + 5) / 68 / lambd
+        ra = extraterrestrial_r(index, lat)
+        
+        temp = (tmean + 5) / 68 / lambd
+        temp.index = to_datetime(temp.index)
+        pet = ra * temp
     else:
         raise Exception("Method can be either 0 or 1.")
     pet = clip_zeros(pet, clip_zero)
@@ -148,7 +151,9 @@ def mcguinness_bordne(tmean, lat, k=0.0147, clip_zero=True):
     ra = extraterrestrial_r(index, lat)
     if isinstance(tmean, DataArray) and isinstance(ra, Series):
         ra = ra.values[:, None, None]
-    pet = k * ra * (tmean + 5) / lambd
+    temp = (tmean + 5) / lambd
+    temp.index = to_datetime(temp.index)
+    pet = k * ra * temp
     pet = clip_zeros(pet, clip_zero)
     return pet_out(tmean, pet, "Mcguinness_Bordne")
 
@@ -445,8 +450,11 @@ def oudin(tmean, lat, k1=100, k2=5, clip_zero=True):
     """
     lambd = calc_lambda(tmean)
     index = get_index(tmean)
-    ra = extraterrestrial_r(index, lat)
-    pet = ra * (tmean + k2) / lambd / k1
-    pet = pet.where((tmean + k2) >= 0, 0)
+    ra = extraterrestrial_r(index, lat)    
+    temp = (tmean + k2) / lambd / k1
+    temp.index = to_datetime(temp.index)
+    pet = ra * temp
+    # pet = pet.where((tmean + k2) >= 0, 0)
+    # the above line of code is not working properly and setting all the values in pet 0.0
     pet = clip_zeros(pet, clip_zero)
     return pet_out(tmean, pet, "Oudin")
