@@ -129,7 +129,6 @@ html_use_smartypants = True
 html_show_sourcelink = True
 
 html_theme_options = {
-    "github_url": "https://github.com/pyet-org/pyet",
     "use_edit_page_button": True,
     "header_links_before_dropdown": 6,
     "icon_links": [

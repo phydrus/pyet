@@ -1,9 +1,7 @@
 *pyet* - Estimation of Potential Evapotranspiration
 ===================================================
 
-*pyet* is an open source Python package for the estimation of reference and potential evapotranspiration (PET) from
-time series data (`Pandas <https://pandas.pydata.org>`_) and gridded data (`Xarray <https://xarray.dev>`_). This
-allows users to estimate potential evapotranspiration and calibrate the models with just a few lines of python code.
+*pyet* is an open source Python package for the estimation of reference and potential evapotranspiration (PET) from time series data (`Pandas <https://pandas.pydata.org>`_) and gridded data (`Xarray <https://xarray.dev>`_). This allows users to estimate potential evapotranspiration and calibrate the models with just a few lines of python code.
 
 .. grid::
 
@@ -251,11 +249,8 @@ Currently, 18 methods are implemented for calculating daily PET
 
 
 Using *pyet*? Show your support by citing us!
------------------------------
+---------------------------------------------
 
-If you find *pyet* useful and use it in your research or project, we kindly ask you to cite 
-the *pyet* preprint published in Hydrology and Earth System Sciences (HESS) as follows:
+If you find *pyet* useful and use it in your research or project, we kindly ask you to cite the *pyet* preprint published in Hydrology and Earth System Sciences (HESS) as follows:
 
-- Vremec, M., Collenteur, R. A., and Birk, S.: Technical note: Improved handling of potential 
-   evapotranspiration in hydrological studies with PyEt, Hydrol. Earth Syst. Sci. Discuss. 
-   [preprint], https://doi.org/10.5194/hess-2022-417, 2023.
+- Vremec, M., Collenteur, R., and Birk, S.: PyEt v1.3.1: a Python package for the estimation of potential evapotranspiration, Geosci. Model Dev. Discuss. [preprint], https://doi.org/10.5194/gmd-2024-63, in review, 2024.
